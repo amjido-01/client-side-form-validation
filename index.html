@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="sum">
+            <h1>Suming Function</h1>
+            <p id="demo">[1,2,3,4]</p>
+
+            <p id="result"></p>
+            <button type="button" id="btn" onclick="">Sum Me</button>
+        </div>
+
+
+        <div class="reversing">
+            <h1>Reversing a function</h1>
+            <p id="demo2">[1,2,3,4,5]</p>
+
+            <p id="result2"></p>
+            <button type="button" id="btn2">Reverse Me</button>
+        </div>
+
+
+        <div class="trming">
+            <h1>Triming function</h1>
+            <p id="demo3">&ensp</p>
+            <p id="demo4"></p>
+
+            <button type="button" id="tri">Trim Me</button>
+        </div>
+    </div>
+
+
+
+    <div class="forms-containers">
+        
+    </div>
+
+    <form action="" method="" id="reg-form" style="margin-left: auto; margin-right: auto; margin-top: 40px;">
+
+        <div class="title">Register</div>
+
+        <!-- user name input -->
+        <div>
+             <label id="label" for="username">username *</label>
+             <i class="fa fa-user"></i>
+
+             <input type="text" 
+                 name="username" 
+                 id="username" 
+                
+                 autocomplete="additional-name"
+             >
+
+             <i class="fa fa-circle-exclamation failure-icon"></i>
+             <i class="fa-solid fa-circle-check success-icon"></i>
+
+             <div class="error"></div>
+
+        </div>
+        
+
+        <!-- password input -->
+        <div>
+            <label id="label" for="password">Password *</label>
+            <i class="fa fa-lock"></i>
+
+            <input type="password" 
+                name="password" 
+                id="password" 
+            >
+
+            <div class="error"></div>
+        </div>
+
+         <button type="submit" id='reg-btn'>register</button>
+    </form> 
+
+
+
+    <form action="" method="" id="form-login" style="margin-left: auto; margin-right: auto; margin-top: 40px;">
+
+        <div class="title">logIn</div>
+
+  
+        <div>
+             <label id="label" for="username">username *</label>
+             <i class="fa fa-user"></i>
+
+             <input type="text" 
+                 name="username" 
+                 id="usernamelog" 
+                
+                 autocomplete="additional-name"
+             >
+
+             <div class="error"></div>
+
+        </div>
+        
+
+
+         <div>
+             <label id="label" for="password">Password *</label>
+             <i class="fa fa-lock"></i>
+
+             <input type="password" 
+                 name="password" 
+                 id="passwordlog" 
+                 
+
+             <div class="error"></div>
+         </div>
+
+         
+         <button type="submit" id="log">log in</button>
+    </form>   
+
+    <h3></h3>
+    <h4></h4>
+    <script src="/scripts/main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
