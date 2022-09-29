@@ -53,17 +53,18 @@ const regForm = document.getElementById(`reg-form`);
 // console.log(regForm)
 const regBtn = document.getElementById(`reg-btn`);
 
-const processUserReg = (username, password) => {
-    const getLocalStorage = () => {
-        const usersFromLocalStorage = JSON.parse(localStorage.getItem('users'));
-        if (usersFromLocalStorage !== null) {
-            console.log(usersFromLocalStorage)
-            return usersFromLocalStorage;
-        } else {
-            console.log(usersFromLocalStorage)
-            return [];
-        }
+const getLocalStorage = () => {
+    const usersFromLocalStorage = JSON.parse(localStorage.getItem('users'));
+    if (usersFromLocalStorage !== null) {
+        console.log(usersFromLocalStorage)
+        return usersFromLocalStorage;
+    } else {
+        console.log(usersFromLocalStorage)
+        return [];
     }
+}
+
+const processUserReg = (username, password) => {
 
     const addToLocalStorage = async (username, password) => {
         const localUsers = await getLocalStorage();
@@ -71,7 +72,7 @@ const processUserReg = (username, password) => {
         newUser.username = username.value;
         newUser.password = password.value;
         const newLocalUsers = [...localUsers, newUser];
-        localStorage.setItem('users', JSON.stringify    (newLocalUsers))
+        localStorage.setItem('users', JSON.stringify(newLocalUsers))
     }
 
     addToLocalStorage(username, password);
@@ -87,26 +88,26 @@ regBtn.addEventListener(`click`, (e) =>  {
     const numbers = /[0-9]/g;
     const specil =  /[!@#$%^&*()_=[[+{};':"|/,<>?.-]/g;
 
-    // if (userName.value.length === 0 && password.value.length === 0) {
-    //     alert(`input must not be empty`)
-    // } else if (userName.value.length === 0) {
-    //     alert(`fill in the user name`)
-    // } else if (password.value.length === 0) {
-    //     alert(`please fill in the password`)
-    // } else if (password.value.length < 8) {
-    //     alert(`password must not be less than eight`)
-    // } else if (!password.value.match(numbers)) {
-    //     alert(`password must contain a number`)
-    // } else if (!password.value.match(lowerCaseLetters)) {
-    //     alert(`password must contain a small letter`)
-    // } else if (!password.value.match(upperCaseLetters)) {
-    //     alert(`password must contain capital letter`)
-    // } else if (!password.value.match(specil)) {
-    //     alert(`password must contain a special character`)
-    // } else {
+    if (userName.value.length === 0 && password.value.length === 0) {
+        alert(`input must not be empty`)
+    } else if (userName.value.length === 0) {
+        alert(`fill in the user name`)
+    } else if (password.value.length === 0) {
+        alert(`please fill in the password`)
+    } else if (password.value.length < 8) {
+        alert(`password must not be less than eight`)
+    } else if (!password.value.match(numbers)) {
+        alert(`password must contain a number`)
+    } else if (!password.value.match(lowerCaseLetters)) {
+        alert(`password must contain a small letter`)
+    } else if (!password.value.match(upperCaseLetters)) {
+        alert(`password must contain capital letter`)
+    } else if (!password.value.match(specil)) {
+        alert(`password must contain a special character`)
+    } else { 
         processUserReg(userName, password);
         alert(`account created`)
-    // }
+    }
 })
 
 
@@ -114,25 +115,33 @@ const formLogin = document.getElementById(`form-login`)
 formLogin.addEventListener(`submit`, (e) => {
     e.preventDefault();
 
-    // const storedUser = localStorage.getItem(`user`)
-    // const storedpassword = localStorage.getItem(`psw`)
-    // const h3 = document.querySelector(`h3`)
-    // const h4 = document.querySelector(`h4`)
-    // console.log(h3);
-    // h3.innerHTML = storedUser;
-    // h4.innerHTML = storedpassword;
-
+    const storedUser = JSON.parse(localStorage.getItem(`users`));
     const userLog = document.getElementById(`usernamelog`)
     const passwordLog = document.getElementById(`passwordlog`)
+    console.log(userLog.value, passwordLog.value)
     // console.log(userLog)
 
-    if (userLog.value === storedUser && passwordLog.value === storedpassword) {
-         
-    Swal.fire('Login successfully!')
-        window.location.href = 'next.html' 
-    } else {
-        // alert('Please check your inputs')
-        Swal.fire('Check your input and try again')
+    let userLogData = {
+        userlog: userLog.value,
+        passwordLog: passwordLog.value
     }
+    // JSON.stringify(userLogData)
+    console.log(userLogData)
+    console.log(storedUser)
+    if (newUser === userLogData) {
+        console.log(userLogData)
+        window.location.href = 'next.html'
+    } else {
+        alert('invalid input value')
+    }
+
+    // if (userLog.value === storedUser.value && passwordLog.value === storedUser.value) {
+         
+    // Swal.fire('Login successfully!')
+    //     window.location.href = 'next.html' 
+    // } else {
+    //     // alert('Please check your inputs')
+    //     Swal.fire('Check your input and try again')
+    // }
 
 })
