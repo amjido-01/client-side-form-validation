@@ -106,6 +106,9 @@ regBtn.addEventListener(`click`, (e) =>  {
         alert(`password must contain a special character`)
     } else { 
         processUserReg(userName, password);
+        // password.value = '';
+        newUser.username = '';
+    
         alert(`account created`)
     }
 })
@@ -118,22 +121,40 @@ formLogin.addEventListener(`submit`, (e) => {
     const storedUser = JSON.parse(localStorage.getItem(`users`));
     const userLog = document.getElementById(`usernamelog`)
     const passwordLog = document.getElementById(`passwordlog`)
-    console.log(userLog.value, passwordLog.value)
-    // console.log(userLog)
+    
 
     let userLogData = {
-        userlog: userLog.value,
-        passwordLog: passwordLog.value
-    }
+        username: userLog.value,
+        password: passwordLog.value
+    };
+    JSON.stringify(userLogData)
     // JSON.stringify(userLogData)
-    console.log(userLogData)
-    console.log(storedUser)
-    if (newUser === userLogData) {
-        console.log(userLogData)
+    storedUser.forEach( (items, index, arr) => {
+       if (items.username === userLogData.username && items.password === userLogData.password) {
+        // console.log(`got it`)
         window.location.href = 'next.html'
-    } else {
-        alert('invalid input value')
-    }
+       } else {
+        alert('incorrect data')
+        return false
+       }
+    })
+    // storedUser.forEach(items => {
+    //     for (let key in items) {
+    //         if (items[key] === userLogData) {
+    //             console.log('hello')
+    //         } else {
+    //             console.log('wrong')
+    //         }
+    //     }
+    // })
+    // storedUser.filter( items => {
+    //     if (items === userLogData) {
+    //         console.log('correct')
+    //     } else {
+    //         console.log('wrong')
+    //         console.log(storedUser)
+    //     }
+    // })
 
     // if (userLog.value === storedUser.value && passwordLog.value === storedUser.value) {
          
