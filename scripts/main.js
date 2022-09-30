@@ -53,28 +53,28 @@ const regForm = document.getElementById(`reg-form`);
 // console.log(regForm)
 const regBtn = document.getElementById(`reg-btn`);
 
+
+
 const getLocalStorage = () => {
-    const usersFromLocalStorage = JSON.parse(localStorage.getItem('users'));
+    const usersFromLocalStorage = JSON.parse(localStorage.getItem(`users`));
     if (usersFromLocalStorage !== null) {
-        console.log(usersFromLocalStorage)
         return usersFromLocalStorage;
     } else {
-        console.log(usersFromLocalStorage)
         return [];
     }
 }
 
 const processUserReg = (username, password) => {
-
     const addToLocalStorage = async (username, password) => {
         const localUsers = await getLocalStorage();
         const newUser = {};
         newUser.username = username.value;
         newUser.password = password.value;
-        const newLocalUsers = [...localUsers, newUser];
-        localStorage.setItem('users', JSON.stringify(newLocalUsers))
-    }
 
+        const newLocalUser = [...localUsers, newUser];
+
+        localStorage.setItem('users', JSON.stringify(newLocalUser))
+    }
     addToLocalStorage(username, password);
 }
 

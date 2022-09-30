@@ -16,6 +16,32 @@
         const password = localStorage.getItem(`psw`)
         const h1 = document.querySelector(`h1`);
         h1.innerHTML ='Mr ' + username  +' you are welcome'
+
+
+        const getLocalStorage = () => {
+            const usersFromLocalStorage = JSON.parse(localStorage.getItem('users'));
+            if (usersFromLocalStorage !== null) {
+                console.log(usersFromLocalStorage)
+                return usersFromLocalStorage;
+            } else {
+                console.log(usersFromLocalStorage)
+                return [];
+            }
+        }
+        
+        const processUserReg = (username, password) => {
+        
+            const addToLocalStorage = async (username, password) => {
+                const localUsers = await getLocalStorage();
+                const newUser = {};
+                newUser.username = username.value;
+                newUser.password = password.value;
+                const newLocalUsers = [...localUsers, newUser];
+                localStorage.setItem('users', JSON.stringify(newLocalUsers))
+            }
+        
+            addToLocalStorage(username, password);
+        }
     </script>
 </body>
 </html>
