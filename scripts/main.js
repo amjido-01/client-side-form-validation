@@ -1,16 +1,19 @@
-function User(firstName, lastName, age, programmingLang) {
-    this.firstName = firstName,
-    this.lastName = lastName,
-    this.age = age,
-    this.programmingLang = programmingLang
-}
-const newUser = new User('Abubakar', 'Muhammad Ala', 20, 'Javascript');
-console.log(newUser.firstName);
+// function User(firstName, lastName, age, programmingLang) {
+//     this.firstName = firstName,
+//     this.lastName = lastName,
+//     this.age = age,
+//     this.programmingLang = programmingLang
+// }
+// const newUser = new User('Abubakar', 'Muhammad Ala', 20, 'Javascript');
+// console.log(newUser.firstName);
 
 
 
 
 // summing function
+
+
+
 const suming = [1,2,3,4];
 let add = 0;
 const result = document.getElementById(`result`)
@@ -68,8 +71,8 @@ const processUserReg = (username, password) => {
     const addToLocalStorage = async (username, password) => {
         const localUsers = await getLocalStorage();
         const newUser = {};
-        newUser.username = username.value;
-        newUser.password = password.value;
+        newUser.username = username;
+        newUser.password = password;
 
         const newLocalUser = [...localUsers, newUser];
 
@@ -78,38 +81,105 @@ const processUserReg = (username, password) => {
     addToLocalStorage(username, password);
 }
 
+const storedUser = JSON.parse(localStorage.getItem(`users`));
+const error = document.querySelector(`.error`);
+const errorOne = document.querySelector(`.errorOne`);
+ 
+password.onfocus = function() {
+    const error = document.querySelector('.error')
+    error.innerHTML = 'A special charcter, number, capital and small letter and not less than 8';
+    error.style.color = 'green'
+}
+
+password.onblur = function() {
+    const error = document.querySelector('.error');
+    error.innerHTML = ''
+}
+
 regBtn.addEventListener(`click`, (e) =>  {
     e.preventDefault()
-    console.log(regForm)
+    // console.log(regForm)
+   
     const userName = document.getElementById(`username`)
     const password = document.getElementById(`password`)
     const lowerCaseLetters = /[a-z]/g;
     const upperCaseLetters = /[A-Z]/g;
     const numbers = /[0-9]/g;
     const specil =  /[!@#$%^&*()_=[[+{};':"|/,<>?.-]/g;
+  
+    // console.log(typeof storedUser)
+
+   
+    // let isExist = storedUser.find(items => {
+    //     return items.username.toUpperCase() === userName.value.toUpperCase()
+    // })
 
     if (userName.value.length === 0 && password.value.length === 0) {
-        alert(`input must not be empty`)
+        // alert(`fill in the form`)
+        password.style.border = '1px solid red'
+        error.innerHTML =  'password required'
+        error.style.color = 'red';
+        userName.style.border = '1px solid red'
+        errorOne.innerHTML = 'user name required'
+        errorOne.style.color = 'red'
+        return false
     } else if (userName.value.length === 0) {
-        alert(`fill in the user name`)
+       if (userName.blur) {
+        userName.style.border = '1px solid red';
+        errorOne.innerHTML = 'User name required'
+       } else if (userName.onfocus) {
+        errorOne.innerHTML = ''
+        // userName.style.border = '1px solid green'
+       }
+    //    userName.style.border = '1px solid green'
+        // alert(`fill in the user name`)
+        // password.style.border = '1px solid red';
     } else if (password.value.length === 0) {
-        alert(`please fill in the password`)
+        // alert(`please fill in the password`)
+        error.innerHTML = 'password required'
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
     } else if (password.value.length < 8) {
-        alert(`password must not be less than eight`)
+        // alert(`password must not be less than eight`)
+        error.innerHTML = 'passsword must not be less than 8'
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
+        return false;
     } else if (!password.value.match(numbers)) {
-        alert(`password must contain a number`)
+        // alert(`password must contain a number`)
+        error.innerHTML = 'password must contain a number';
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
     } else if (!password.value.match(lowerCaseLetters)) {
-        alert(`password must contain a small letter`)
+        // alert(`password must contain a small letter`)
+        error.innerHTML = 'password must contain small letter';
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
     } else if (!password.value.match(upperCaseLetters)) {
-        alert(`password must contain capital letter`)
+        // alert(`password must contain capital letter`)
+        error.innerHTML = 'password must contain capital letter';
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
     } else if (!password.value.match(specil)) {
-        alert(`password must contain a special character`)
-    } else { 
-        processUserReg(userName, password);
+        // alert(`password must contain a special character`)
+        error.innerHTML = 'password must contain special character';
+        error.style.color = 'red'
+        password.style.border = '1px solid red';
+        
+    }  else if (isExist) {
+        alert(`user exist`);
+        return false
+    }
+    else { 
+        processUserReg(userName.value, password.value);
+        // userName.style.border = '1px solid green'    
         // password.value = '';
-        newUser.username = '';
-    
-        alert(`account created`)
+        userName.value = '';
+        password.value = '';
+        errorOne.innerHTML = ''
+        alert(`account created`);
+        userName.style.border = '1px solid green'
+        password.style.border = '1px solid green'
     }
 })
 
@@ -118,12 +188,11 @@ const formLogin = document.getElementById(`form-login`)
 formLogin.addEventListener(`submit`, (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem(`users`));
     const userLog = document.getElementById(`usernamelog`)
     const passwordLog = document.getElementById(`passwordlog`)
     
 
-    let userLogData = {
+    const userLogData = {
         username: userLog.value,
         password: passwordLog.value
     };
@@ -136,33 +205,6 @@ formLogin.addEventListener(`submit`, (e) => {
        } else {
         alert('incorrect data')
         return false
-       }
+       } 
     })
-    // storedUser.forEach(items => {
-    //     for (let key in items) {
-    //         if (items[key] === userLogData) {
-    //             console.log('hello')
-    //         } else {
-    //             console.log('wrong')
-    //         }
-    //     }
-    // })
-    // storedUser.filter( items => {
-    //     if (items === userLogData) {
-    //         console.log('correct')
-    //     } else {
-    //         console.log('wrong')
-    //         console.log(storedUser)
-    //     }
-    // })
-
-    // if (userLog.value === storedUser.value && passwordLog.value === storedUser.value) {
-         
-    // Swal.fire('Login successfully!')
-    //     window.location.href = 'next.html' 
-    // } else {
-    //     // alert('Please check your inputs')
-    //     Swal.fire('Check your input and try again')
-    // }
-
 })
